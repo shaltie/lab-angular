@@ -1,0 +1,7 @@
+<div>
+    Data: {{ data | json }}
+</div>
+
+<ul>
+    <li *ngFor="let item of locationsData">{{item.name}}: {{item.coordinates | json}}</li>
+</ul>
