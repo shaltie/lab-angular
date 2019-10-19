@@ -11,11 +11,20 @@ export class MapComponent implements OnInit {
   public locationsData: Array<any>;
 
   constructor(private locationsDataService: LocationsDataService) {
-    this.locationsData = locationsDataService.getData();
+     locationsDataService.getData().subscribe((data) => {
+       this.locationsData = Object.values(data);
+    });
   }
 
+  selectedMarker = undefined;
+
+  onMarkerClick(markerData){
+    this.selectedMarker = markerData;
+  }
 
   ngOnInit() {
   }
+
+
 
 }

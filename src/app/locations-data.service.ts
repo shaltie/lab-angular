@@ -7,23 +7,15 @@ import { HttpClient } from '@angular/common/http';
 })
 export class LocationsDataService {
 
-  private DATA_URL = '/locations.json';
-
-  public data;
-
-
+  private DATA_URL = '/assets/locations.json';
 
   constructor(private http:  HttpClient) {
 
-
   }
-
-
 
   getData(){
 
-    this.http.get(this.DATA_URL).subscribe((data) => this.data=data);
+    return this.http.get(this.DATA_URL);
 
-    return [];
   }
 }

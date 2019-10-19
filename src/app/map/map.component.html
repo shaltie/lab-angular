@@ -1,7 +1,25 @@
-<div>
-    Data: {{ data | json }}
-</div>
+<section class="map-container">
+    <div class="side-bar" [class.active]="isSideBarActive">
 
-<ul>
-    <li *ngFor="let item of locationsData">{{item.name}}: {{item.coordinates | json}}</li>
-</ul>
+        <div class="side-bar-info" *ngIf="selectedMarker">
+            <p>
+                This is {{ selectedMarker.name }}<br>
+                Coordinates are {{ selectedMarker.coordinates[0] }}x{{ selectedMarker.coordinates[1] }}
+            </p>
+            <hr>
+            <p>
+                You can go to tabs page <a  routerLink="/tabs">here</a>
+            </p>
+        </div>
+
+        <div class="close" (click)="isSideBarActive = false;"></div>
+    </div>
+    <div class="mab-block">
+        <agm-map *ngIf="true" [latitude]="locationsData[0].coordinates[0]" [longitude]="locationsData[0].coordinates[1]">
+            <agm-marker  *ngFor="let item of locationsData" [latitude]="item.coordinates[0]" [longitude]="item.coordinates[1]" (markerClick)="isSideBarActive = true; onMarkerClick(item)"></agm-marker>
+        </agm-map>
+    </div>
+</section>
+
+
+

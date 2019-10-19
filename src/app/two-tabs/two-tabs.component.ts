@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {LocationsDataService} from "../locations-data.service";
+
 
 @Component({
   selector: 'app-two-tabs',
@@ -7,7 +9,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TwoTabsComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+
+  }
 
   ngOnInit() {
   }

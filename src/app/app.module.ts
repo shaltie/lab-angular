@@ -9,6 +9,11 @@ import { AppComponent } from './app.component';
 import { MapComponent } from './map/map.component';
 import { TwoTabsComponent } from './two-tabs/two-tabs.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { AgmCoreModule } from '@agm/core';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { PaginatedLocationsComponent } from './paginated-locations/paginated-locations.component';
 
 const ROUTES: Routes = <Routes>[
   {path: '', component: MapComponent},
@@ -21,12 +26,17 @@ const ROUTES: Routes = <Routes>[
     AppComponent,
     MapComponent,
     TwoTabsComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    PaginatedLocationsComponent
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot(ROUTES),
-    HttpClientModule
+    HttpClientModule,
+    AgmCoreModule.forRoot({apiKey: 'AIzaSyCgmOsuwqid78kVPubYZMG4vfnjnAU_Hno'}),
+    NoopAnimationsModule,
+    MatTabsModule,
+    MatPaginatorModule
   ],
   providers: [],
   bootstrap: [AppComponent]
