@@ -14,6 +14,13 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { PaginatedLocationsComponent } from './paginated-locations/paginated-locations.component';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatListModule } from '@angular/material/list';
+import { AddLocationFormComponent } from './add-location-form/add-location-form.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material';
+import { MatButtonModule } from '@angular/material/button';
 
 const ROUTES: Routes = <Routes>[
   {path: '', component: MapComponent},
@@ -27,7 +34,8 @@ const ROUTES: Routes = <Routes>[
     MapComponent,
     TwoTabsComponent,
     PageNotFoundComponent,
-    PaginatedLocationsComponent
+    PaginatedLocationsComponent,
+    AddLocationFormComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +44,13 @@ const ROUTES: Routes = <Routes>[
     AgmCoreModule.forRoot({apiKey: 'AIzaSyCgmOsuwqid78kVPubYZMG4vfnjnAU_Hno'}),
     NoopAnimationsModule,
     MatTabsModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatGridListModule,
+    MatListModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

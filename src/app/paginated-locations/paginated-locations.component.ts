@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {LocationsDataService} from "../locations-data.service";
+import {LocationsDataService} from "../shared/locations-data.service";
 import {PageEvent} from '@angular/material';
 
 @Component({
@@ -9,7 +9,7 @@ import {PageEvent} from '@angular/material';
 })
 export class PaginatedLocationsComponent {
 
-  public locationsData: Array<any>;
+  /*public locationsData: Array<any>;
 
   length = 0;
   pageSize = 10;
@@ -18,7 +18,7 @@ export class PaginatedLocationsComponent {
 
   constructor(private locationsDataService: LocationsDataService) {
 
-    locationsDataService.getData().subscribe((data) => {
+    locationsDataService.getLocations().subscribe((data) => {
       this.locationsData = Object.values(data);
       this.activePageDataChunk = this.locationsData.slice(0,this.pageSize);
       this.length = this.locationsData.length;
@@ -30,6 +30,14 @@ export class PaginatedLocationsComponent {
     let firstCut = e.pageIndex * e.pageSize;
     let secondCut = firstCut + e.pageSize;
     this.activePageDataChunk = this.locationsData.slice(firstCut, secondCut);
+  }*/
+
+  ngOnInit() {
+    /*this.locationsDataService.getLocations()
+        .subscribe(() => {
+          //this.loading = false
+        })*/
   }
+
 
 }

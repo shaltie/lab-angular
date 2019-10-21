@@ -1,6 +1,7 @@
-<ul>
-    <li *ngFor="let item of activePageDataChunk">{{ item.name }}: {{ item.coordinates[0] }}x{{ item.coordinates[1] }}</li>
-</ul>
+<mat-list>
+    <mat-list-item role="listitem" *ngFor="let item of locationsDataService.locationsArray">
+     {{ item.name }}: {{ item.lat }}x{{ item.long }}</mat-list-item>
+</mat-list>
 
 
 <mat-paginator [length]="length" [hidePageSize]="true" [pageSize]="pageSize" (page)="onPageChanged($event)">

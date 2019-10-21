@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {LocationsDataService} from "../locations-data.service";
+import {LocationsDataService} from "../shared/locations-data.service";
 
 @Component({
   selector: 'app-map',
@@ -8,11 +8,13 @@ import {LocationsDataService} from "../locations-data.service";
 })
 export class MapComponent implements OnInit {
 
-  public locationsData: Array<any>;
+  /*public locationsData: Array<any>;
+  public centeredLocation = [];
 
   constructor(private locationsDataService: LocationsDataService) {
-     locationsDataService.getData().subscribe((data) => {
+     locationsDataService.getLocations().subscribe((data) => {
        this.locationsData = Object.values(data);
+       this.centeredLocation = this.locationsData && this.locationsData[0] && this.locationsData[0].coordinates || [];
     });
   }
 
@@ -20,7 +22,7 @@ export class MapComponent implements OnInit {
 
   onMarkerClick(markerData){
     this.selectedMarker = markerData;
-  }
+  }*/
 
   ngOnInit() {
   }

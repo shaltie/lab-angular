@@ -1,9 +1,11 @@
 <mat-tab-group>
     <mat-tab label="Locations">
 
-        <app-paginated-locations></app-paginated-locations>
+    <app-paginated-locations></app-paginated-locations>
 
     </mat-tab>
-    <mat-tab label="Map"> Interactive map </mat-tab>
+    <mat-tab label="Map">
+        <app-add-location-form></app-add-location-form>
+        <app-map></app-map>
+    </mat-tab>
 </mat-tab-group>
-
