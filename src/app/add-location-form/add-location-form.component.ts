@@ -36,7 +36,7 @@ export class AddLocationFormComponent implements OnInit {
 
     };
 
-    //this.locationsDataService.addLocation(locationItem);
+    this.locationsDataService.addLocation(locationItem);
 
     console.log(locationItem);
   }

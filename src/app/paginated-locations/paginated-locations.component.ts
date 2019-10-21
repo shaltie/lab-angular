@@ -9,7 +9,7 @@ import {PageEvent} from '@angular/material';
 })
 export class PaginatedLocationsComponent {
 
-  /*public locationsData: Array<any>;
+  public locationsData: Array<any>;
 
   length = 0;
   pageSize = 10;
@@ -30,13 +30,13 @@ export class PaginatedLocationsComponent {
     let firstCut = e.pageIndex * e.pageSize;
     let secondCut = firstCut + e.pageSize;
     this.activePageDataChunk = this.locationsData.slice(firstCut, secondCut);
-  }*/
+  }
 
   ngOnInit() {
-    /*this.locationsDataService.getLocations()
+    this.locationsDataService.getLocations()
         .subscribe(() => {
           //this.loading = false
-        })*/
+        })
   }
 
 

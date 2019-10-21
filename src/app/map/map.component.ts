@@ -8,7 +8,7 @@ import {LocationsDataService} from "../shared/locations-data.service";
 })
 export class MapComponent implements OnInit {
 
-  /*public locationsData: Array<any>;
+  public locationsData: Array<any>;
   public centeredLocation = [];
 
   constructor(private locationsDataService: LocationsDataService) {
@@ -22,7 +22,7 @@ export class MapComponent implements OnInit {
 
   onMarkerClick(markerData){
     this.selectedMarker = markerData;
-  }*/
+  }
 
   ngOnInit() {
   }
