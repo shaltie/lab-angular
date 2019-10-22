@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {LocationsDataService} from "../shared/locations-data.service";
+import {LocationsDataService, LocationItem} from "../shared/locations-data.service";
 import {Subscription} from "rxjs/index";
 declare const google: any;
 
@@ -10,9 +10,11 @@ declare const google: any;
 })
 export class MapComponent implements OnInit {
 
-  public locationsData: Array<any>;
-  public centeredLocation = [];
+  private locationsData: LocationItem[];
+  private centeredLocation = [];
   subscription: Subscription;
+
+  map;
 
   constructor(private locationsDataService: LocationsDataService) { }
 
@@ -25,6 +27,7 @@ export class MapComponent implements OnInit {
 
 
   onMapReady(map) {
+    this.map = map;
     this.initDrawingManager(map);
   }
 
@@ -46,17 +49,19 @@ export class MapComponent implements OnInit {
 
     let markers = [];
 
-    for (let location of this.locationsData) {
+    if(this.locationsData){
+      for (let location of this.locationsData) {
 
-      let marker = new google.maps.Marker({
-        position: new google.maps.LatLng(location.lat, location.long),
-        index: location.index,
-        map: map
-      });
+        let marker = new google.maps.Marker({
+          position: new google.maps.LatLng(location.lat, location.long),
+          index: location.index,
+          map: map
+        });
 
-      markers.push(marker);
+        markers.push(marker);
 
 
+      }
     }
 
 
@@ -66,10 +71,9 @@ export class MapComponent implements OnInit {
 
         if (google.maps.geometry.poly.containsLocation(marker.getPosition(), polygon)) {
           console.log('is', marker);
-          this.locationsData = this.locationsData.filter(v=>{
-            return v.index !== marker.index;
 
-          });
+          this.locationsDataService.removeLocation(marker.index);
+
           marker.setMap(null);
         }
       }
@@ -80,21 +84,10 @@ export class MapComponent implements OnInit {
 
   ngOnInit() {
 
-    this.locationsDataService.getLocations().subscribe((data) => {
-      this.locationsData = Object.values(data).map((item, i)=>{
-        return {
-          index: i,
-          name: item.name,
-          lat: item.coordinates[0],
-          long: item.coordinates[1]
-        }
-      });
-      this.centeredLocation = this.locationsData && this.locationsData[0] || {};
-    });
+    this.subscription = this.locationsDataService.newLocation.subscribe(locations => {
 
-    this.subscription = this.locationsDataService.getNewLocation().subscribe(newLocation => {
-
-      this.locationsData.push(newLocation);
+      this.locationsData = locations;
+      this.centeredLocation = locations[0];
 
     });
 

@@ -24,43 +24,45 @@ export class LocationsDataService {
 
   private DATA_URL = '/assets/locations.json';
 
-  public locationsArray = new Subject<LocationItem[]>();
+  public locationsArray: LocationItem[];
 
-  private newLocation = new Subject<LocationItem>();
+  public newLocation = new Subject();
 
   private lastIndex = 0;
 
-  constructor(private http:  HttpClient) { }
+  constructor(private http:  HttpClient) {
 
-  getLocations(): Observable<LocationItem[]> {
-
-    return this.http.get(this.DATA_URL)
-        .pipe(tap(data => {
-          this.lastIndex = data.slice(-1).index;
+    http.get(this.DATA_URL).subscribe(
+        res => {
+          let data = res as LocationItem[];
+          this.lastIndex = data.length;
           this.locationsArray = data.map((item, index) => {
             return {
               index: index,
               name: item.name,
-              lat: item && item.coordinates[0],
-              long: item && item.coordinates[1]
+              lat: item.coordinates[0],
+              long: item.coordinates[1]
             }
-          })
-        }));
-  };
+          });
 
-  getNewLocation(): Observable<LocationItem> {
-    return this.newLocation.asObservable();
+          this.newLocation.next(this.locationsArray);
+        }
+    );
+
   }
 
-  /*removeLocation(id: number) {
-    this.todos = this.todos.filter(t => t.id !== id)
-  }*/
+  removeLocation(markerIndex) {
+    this.locationsArray = this.locationsArray.filter(item => {
+      return item.index !== markerIndex;
+    });
+    this.newLocation.next(this.locationsArray);
+  }
 
   addLocation(item: LocationItem) {
     this.lastIndex++;
     item.index = this.lastIndex;
     this.locationsArray.push(item);
-    this.newLocation.next(item);
+    this.newLocation.next(this.locationsArray);
   }
 
 

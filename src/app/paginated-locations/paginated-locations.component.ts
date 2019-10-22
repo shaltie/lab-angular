@@ -37,17 +37,12 @@ export class PaginatedLocationsComponent {
   }
 
   ngOnInit() {
-    this.locationsDataService.getLocations().subscribe((data) => {
-      this.locationsData = Object.values(data);
 
-      this.updatePaginator();
 
-    });
+    this.subscription = this.locationsDataService.newLocation.subscribe(newLocation => {
 
-    this.subscription = this.locationsDataService.getNewLocation().subscribe(newLocation => {
+      this.locationsData = newLocation;
 
-      this.locationsData.push(newLocation);
-      console.log('mess upd');
       this.updatePaginator();
 
     });
