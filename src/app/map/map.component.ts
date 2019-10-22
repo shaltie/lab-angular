@@ -65,12 +65,12 @@ export class MapComponent implements OnInit {
 
 
     google.maps.event.addListener(drawingManager,'polygoncomplete',polygon => {
-      console.log('poly', polygon)
 
       for (let marker of markers) {
-        console.log('is', marker);
+
         //console.log(marker.getPosition());
         if (google.maps.geometry.poly.containsLocation(marker.getPosition(), polygon)) {
+          console.log('is', marker);
           this.locationsData = this.locationsData.filter(v=>{
             return v.index !== marker.index;
 

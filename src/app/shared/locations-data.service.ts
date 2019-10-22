@@ -7,6 +7,7 @@ import {tap} from 'rxjs/operators';
 
 
 export interface LocationItem {
+  index: number,
   name: string,
   lat: string
   long: string
@@ -23,22 +24,28 @@ export class LocationsDataService {
 
   private DATA_URL = '/assets/locations.json';
 
-  public locationsArray: LocationItem;
+  public locationsArray: LocationItem[];
 
   private newLocation = new Subject<LocationItem>();
 
+  private lastIndex = 0;
+
   constructor(private http:  HttpClient) { }
 
-  getLocations(): Observable<LocationItem> {
+  getLocations(): Observable<LocationItem[]> {
 
     return this.http.get(this.DATA_URL)
-        .pipe(tap(data => this.locationsArray = data.map(item => {
-          return {
-            name: item.name,
-            lat: item.coordinates[0],
-            long: item.coordinates[1]
-          }
-        })))
+        .pipe(tap(data => {
+          this.lastIndex = data.slice(-1).index;
+          this.locationsArray = data.map((item, index) => {
+            return {
+              index: index,
+              name: item.name,
+              lat: item && item.coordinates[0],
+              long: item && item.coordinates[1]
+            }
+          })
+        }));
   };
 
   getNewLocation(): Observable<LocationItem> {
@@ -50,6 +57,8 @@ export class LocationsDataService {
   }*/
 
   addLocation(item: LocationItem) {
+    this.lastIndex++;
+    item.index = this.lastIndex;
     this.locationsArray.push(item);
     this.newLocation.next(item);
   }

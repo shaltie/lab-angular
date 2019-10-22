@@ -27,6 +27,7 @@ export class AddLocationFormComponent implements OnInit {
   onClickSubmit() {
 
     const locationItem: LocationItem = {
+      index: undefined,
       name: this.contactForm.value.name,
       lat: this.contactForm.value.lat,
       long: this.contactForm.value.long
