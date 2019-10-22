@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
 
 import {HttpClient} from '@angular/common/http';
-import {Subject} from "rxjs/index";
 import {map} from "rxjs/internal/operators/map";
-import {Observable} from "rxjs/index";
+import {Subject, Observable, of, BehaviorSubject} from "rxjs";
 import {tap} from 'rxjs/operators';
+
 
 export interface LocationItem {
   name: string,
@@ -23,29 +23,35 @@ export class LocationsDataService {
 
   private DATA_URL = '/assets/locations.json';
 
-  public locationsArray: LocationItem[] = [];
+  public locationsArray: LocationItem;
+
+  private newLocation = new Subject<LocationItem>();
 
   constructor(private http:  HttpClient) { }
 
+  getLocations(): Observable<LocationItem> {
 
-  getLocations(): Observable<LocationItem[]> {
-
-    return this.http.get<LocationItem[]>(this.DATA_URL)
+    return this.http.get(this.DATA_URL)
         .pipe(tap(data => this.locationsArray = data.map(item => {
           return {
             name: item.name,
-            lat: 'a',//item.coordinates[0],
-            long: 'b'//item.coordinates[1]
+            lat: item.coordinates[0],
+            long: item.coordinates[1]
           }
         })))
   };
+
+  getNewLocation(): Observable<LocationItem> {
+    return this.newLocation.asObservable();
+  }
 
   /*removeLocation(id: number) {
     this.todos = this.todos.filter(t => t.id !== id)
   }*/
 
   addLocation(item: LocationItem) {
-    this.locationsArray.push(item)
+    this.locationsArray.push(item);
+    this.newLocation.next(item);
   }
 
 

@@ -41,7 +41,7 @@ const ROUTES: Routes = <Routes>[
     BrowserModule,
     RouterModule.forRoot(ROUTES),
     HttpClientModule,
-    AgmCoreModule.forRoot({apiKey: 'AIzaSyCgmOsuwqid78kVPubYZMG4vfnjnAU_Hno'}),
+    AgmCoreModule.forRoot({apiKey: 'AIzaSyCgmOsuwqid78kVPubYZMG4vfnjnAU_Hno', libraries: ['drawing', 'geometry']}),
     NoopAnimationsModule,
     MatTabsModule,
     MatPaginatorModule,

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {LocationsDataService} from "../shared/locations-data.service";
 import {PageEvent} from '@angular/material';
+import {Subscription} from "rxjs/index";
 
 @Component({
   selector: 'app-paginated-locations',
@@ -15,16 +16,11 @@ export class PaginatedLocationsComponent {
   pageSize = 10;
   pageEvent: PageEvent;
   activePageDataChunk = [];
+  subscription: Subscription;
 
-  constructor(private locationsDataService: LocationsDataService) {
 
-    locationsDataService.getLocations().subscribe((data) => {
-      this.locationsData = Object.values(data);
-      this.activePageDataChunk = this.locationsData.slice(0,this.pageSize);
-      this.length = this.locationsData.length;
-    });
 
-  }
+  constructor(private locationsDataService: LocationsDataService) { }
 
   onPageChanged(e) {
     let firstCut = e.pageIndex * e.pageSize;
@@ -32,11 +28,29 @@ export class PaginatedLocationsComponent {
     this.activePageDataChunk = this.locationsData.slice(firstCut, secondCut);
   }
 
+
+  private updatePaginator(){
+
+    this.activePageDataChunk = this.locationsData.slice(0,this.pageSize);
+    this.length = this.locationsData.length;
+
+  }
+
   ngOnInit() {
-    this.locationsDataService.getLocations()
-        .subscribe(() => {
-          //this.loading = false
-        })
+    this.locationsDataService.getLocations().subscribe((data) => {
+      this.locationsData = Object.values(data);
+
+      this.updatePaginator();
+
+    });
+
+    this.subscription = this.locationsDataService.getNewLocation().subscribe(newLocation => {
+
+      this.locationsData.push(newLocation);
+      console.log('mess upd');
+      this.updatePaginator();
+
+    });
   }
 
 

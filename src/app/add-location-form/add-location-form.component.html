@@ -1,11 +1,11 @@
-<form [formGroup]="contactForm">
+<form #addLocationForm="ngForm" [formGroup]="contactForm" (submit)="onClickSubmit();addLocationForm.reset();">
 
     <mat-form-field>
         <input matInput
                name = "name"
                placeholder = "Enter location's name"
                formControlName="name"
-               ngModel pattern="[a-zA-Z ]*"
+               [(ngModel)]="name" pattern="[a-zA-Z ]*"
                required>
     </mat-form-field>
 
@@ -14,7 +14,7 @@
                name = "lat"
                placeholder = "Enter latitute"
                formControlName="lat"
-               ngModel pattern="\d{2}.\d{5}"
+               [(ngModel)]="lat" pattern="\d{2}.\d{5}"
                required>
     </mat-form-field>
 
@@ -23,7 +23,7 @@
                name = "long"
                placeholder = "Enter longitude"
                formControlName="long"
-               ngModel pattern="\d{2}.\d{5}"
+               [(ngModel)]="long"  pattern="\d{2}.\d{5}"
                required>
     </mat-form-field>
 
@@ -31,7 +31,6 @@
             color="primary"
             type = "submit"
             value = "Submit"
-            (click)="onClickSubmit()"
             [disabled]="!contactForm.valid">
         Submit
     </button>

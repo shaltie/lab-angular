@@ -15,8 +15,8 @@
         <div class="close" (click)="isSideBarActive = false;"></div>
     </div>
     <div class="mab-block">
-        <agm-map [latitude]="centeredLocation[0]" [longitude]="centeredLocation[1]">
-            <agm-marker  *ngFor="let item of locationsData" [latitude]="item.coordinates[0]" [longitude]="item.coordinates[1]" (markerClick)="isSideBarActive = true; onMarkerClick(item)"></agm-marker>
+        <agm-map [latitude]="centeredLocation.lat" [longitude]="centeredLocation.long" (mapReady)="onMapReady($event)">
+            <agm-marker  *ngFor="let item of locationsData" [latitude]="item.lat" [longitude]="item.long" (markerClick)="isSideBarActive = true; onMarkerClick(item)"></agm-marker>
         </agm-map>
     </div>
 </section>
