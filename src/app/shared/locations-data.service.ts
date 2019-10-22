@@ -24,7 +24,7 @@ export class LocationsDataService {
 
   private DATA_URL = '/assets/locations.json';
 
-  public locationsArray: LocationItem[];
+  public locationsArray = new Subject<LocationItem[]>();
 
   private newLocation = new Subject<LocationItem>();
 

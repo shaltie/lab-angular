@@ -56,45 +56,27 @@ export class MapComponent implements OnInit {
 
       markers.push(marker);
 
-      /*google.maps.event.addListener(marker, 'click', (() => {
-        alert('f')
-      }))*/
+
     }
-
-
 
 
     google.maps.event.addListener(drawingManager,'polygoncomplete',polygon => {
 
       for (let marker of markers) {
 
-        //console.log(marker.getPosition());
         if (google.maps.geometry.poly.containsLocation(marker.getPosition(), polygon)) {
           console.log('is', marker);
           this.locationsData = this.locationsData.filter(v=>{
             return v.index !== marker.index;
 
-          })
+          });
           marker.setMap(null);
         }
       }
 
-      // complete functions
-
-      /*google.maps.event.addListener(thePath, 'set_at', function() {
-        // complete functions
-      });
-
-      google.maps.event.addListener(thePath, 'insert_at', function() {
-        // complete functions
-      });*/
 
     });
   }
-
-
-
-
 
   ngOnInit() {
 
@@ -117,7 +99,6 @@ export class MapComponent implements OnInit {
     });
 
   }
-
 
 
 }
