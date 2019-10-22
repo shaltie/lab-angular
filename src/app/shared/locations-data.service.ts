@@ -4,6 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {map} from "rxjs/internal/operators/map";
 import {Subject, Observable, of, BehaviorSubject} from "rxjs";
 import {tap} from 'rxjs/operators';
+import {ReplaySubject} from "rxjs/index";
 
 
 export interface LocationItem {
@@ -26,7 +27,7 @@ export class LocationsDataService {
 
   public locationsArray: LocationItem[];
 
-  public newLocation = new Subject();
+  public newLocation = new ReplaySubject();
 
   private lastIndex = 0;
 

@@ -14,7 +14,11 @@ export class MapComponent implements OnInit {
   private centeredLocation = [];
   subscription: Subscription;
 
-  map;
+  private markers = [];
+  private map;
+  private mapIsReady = false;
+  private isSideBarActive = false;
+
 
   constructor(private locationsDataService: LocationsDataService) { }
 
@@ -22,13 +26,37 @@ export class MapComponent implements OnInit {
 
   onMarkerClick(markerData){
     this.selectedMarker = markerData;
+    this.isSideBarActive = true;
   }
-
-
 
   onMapReady(map) {
     this.map = map;
+    this.mapIsReady = true;
     this.initDrawingManager(map);
+  }
+
+  addMarkers(){
+
+    if(this.locationsData){
+      for (let location of this.locationsData) {
+
+        let alreadyExists = this.markers.filter(item => {
+          return item.index === location.index
+        })[0];
+
+        if(!alreadyExists){
+          let marker = new google.maps.Marker({
+            position: new google.maps.LatLng(location.lat, location.long),
+            index: location.index,
+            map: this.map
+          });
+
+          this.markers.push(marker);
+        }
+
+      }
+    }
+
   }
 
   initDrawingManager(map: any) {
@@ -41,33 +69,20 @@ export class MapComponent implements OnInit {
         draggable: true,
         editable: true
       },
-      drawingMode: google.maps.drawing.OverlayType.POLYGON
+      //drawingMode: google.maps.drawing.OverlayType.POLYGON
     };
 
     const drawingManager = new google.maps.drawing.DrawingManager(options);
     drawingManager.setMap(map);
 
-    let markers = [];
-
-    if(this.locationsData){
-      for (let location of this.locationsData) {
-
-        let marker = new google.maps.Marker({
-          position: new google.maps.LatLng(location.lat, location.long),
-          index: location.index,
-          map: map
-        });
-
-        markers.push(marker);
 
 
-      }
-    }
+    this.addMarkers();
 
 
     google.maps.event.addListener(drawingManager,'polygoncomplete',polygon => {
 
-      for (let marker of markers) {
+      for (let marker of this.markers) {
 
         if (google.maps.geometry.poly.containsLocation(marker.getPosition(), polygon)) {
           console.log('is', marker);
@@ -75,7 +90,10 @@ export class MapComponent implements OnInit {
           this.locationsDataService.removeLocation(marker.index);
 
           marker.setMap(null);
+
         }
+
+        polygon.setMap(null);
       }
 
 
@@ -84,10 +102,15 @@ export class MapComponent implements OnInit {
 
   ngOnInit() {
 
+
     this.subscription = this.locationsDataService.newLocation.subscribe(locations => {
 
       this.locationsData = locations;
       this.centeredLocation = locations[0];
+
+      if(this.mapIsReady){
+        this.addMarkers();
+      }
 
     });
 
