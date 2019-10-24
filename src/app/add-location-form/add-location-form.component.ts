@@ -16,7 +16,7 @@ export class AddLocationFormComponent implements OnInit {
   private long: string;
 
   constructor(private locationsDataService: LocationsDataService) { }
-
+f
   createContactForm() {
 
     this.contactForm = new FormGroup({
