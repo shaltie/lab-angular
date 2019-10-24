@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {FormGroup, FormControl, Validators} from '@angular/forms';
-import {LocationItem, LocationsDataService} from "../shared/locations-data.service";
-import {Subscription} from "rxjs/index";
+import {FormGroup, FormControl} from '@angular/forms';
+import {LocationItem, LocationsDataService} from '../shared/locations-data.service';
 
 @Component({
   selector: 'app-add-location-form',
@@ -14,7 +13,7 @@ export class AddLocationFormComponent implements OnInit {
 
   constructor(private locationsDataService: LocationsDataService) { }
 
-  createContactForm(){
+  createContactForm() {
 
     this.contactForm = new FormGroup({
       name: new FormControl(''),

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {LocationsDataService, LocationItem} from "../shared/locations-data.service";
-import {Subscription} from "rxjs/index";
+import {LocationsDataService, LocationItem} from '../shared/locations-data.service';
 declare const google: any;
 
 @Component({
@@ -11,8 +10,7 @@ declare const google: any;
 export class MapComponent implements OnInit {
 
   private locationsData: LocationItem[];
-  private centeredLocation = [];
-  subscription: Subscription;
+  private centeredLocation: LocationItem;
 
   private markers = [];
   private map;
@@ -24,7 +22,7 @@ export class MapComponent implements OnInit {
 
   selectedMarker;
 
-  onMarkerClick(markerData){
+  onMarkerClick(markerData) {
     this.selectedMarker = markerData;
     this.isSideBarActive = true;
   }
@@ -35,17 +33,17 @@ export class MapComponent implements OnInit {
     this.initDrawingManager(map);
   }
 
-  addMarkers(){
+  addMarkers() {
 
-    if(this.locationsData){
-      for (let location of this.locationsData) {
+    if (this.locationsData) {
+      for (const location of this.locationsData) {
 
-        let alreadyExists = this.markers.filter(item => {
-          return item.index === location.index
+        const alreadyExists = this.markers.filter(item => {
+          return item.index === location.index;
         })[0];
 
-        if(!alreadyExists){
-          let marker = new google.maps.Marker({
+        if (!alreadyExists) {
+          const marker = new google.maps.Marker({
             position: new google.maps.LatLng(location.lat, location.long),
             index: location.index,
             map: this.map
@@ -63,13 +61,13 @@ export class MapComponent implements OnInit {
     const options = {
       drawingControl: true,
       drawingControlOptions: {
-        drawingModes: ["polygon"]
+        drawingModes: ['polygon']
       },
       polygonOptions: {
         draggable: true,
         editable: true
       },
-      //drawingMode: google.maps.drawing.OverlayType.POLYGON
+      // drawingMode: google.maps.drawing.OverlayType.POLYGON
     };
 
     const drawingManager = new google.maps.drawing.DrawingManager(options);
@@ -80,12 +78,11 @@ export class MapComponent implements OnInit {
     this.addMarkers();
 
 
-    google.maps.event.addListener(drawingManager,'polygoncomplete',polygon => {
+    google.maps.event.addListener(drawingManager, 'polygoncomplete', polygon => {
 
-      for (let marker of this.markers) {
+      for (const marker of this.markers) {
 
         if (google.maps.geometry.poly.containsLocation(marker.getPosition(), polygon)) {
-          console.log('is', marker);
 
           this.locationsDataService.removeLocation(marker.index);
 
@@ -103,12 +100,12 @@ export class MapComponent implements OnInit {
   ngOnInit() {
 
 
-    this.subscription = this.locationsDataService.newLocation.subscribe(locations => {
+    this.locationsDataService.newLocation.subscribe((locations: LocationItem[]): void => {
 
       this.locationsData = locations;
       this.centeredLocation = locations[0];
 
-      if(this.mapIsReady){
+      if (this.mapIsReady) {
         this.addMarkers();
       }
 

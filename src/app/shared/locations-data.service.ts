@@ -1,17 +1,20 @@
 import {Injectable} from '@angular/core';
 
 import {HttpClient} from '@angular/common/http';
-import {map} from "rxjs/internal/operators/map";
-import {Subject, Observable, of, BehaviorSubject} from "rxjs";
-import {tap} from 'rxjs/operators';
-import {ReplaySubject} from "rxjs/index";
+import {ReplaySubject} from 'rxjs/index';
 
 
 export interface LocationItem {
-  index: number,
-  name: string,
-  lat: string
-  long: string
+  index: number;
+  name: string;
+  lat: string;
+  long: string;
+}
+
+export interface LocationItemFromAPI {
+  index: number;
+  name: string;
+  coordinates: [string];
 }
 
 
@@ -27,23 +30,23 @@ export class LocationsDataService {
 
   public locationsArray: LocationItem[];
 
-  public newLocation = new ReplaySubject();
+  public newLocation = new ReplaySubject<LocationItem[]>();
 
   private lastIndex = 0;
 
-  constructor(private http:  HttpClient) {
+  constructor(private http: HttpClient) {
 
     http.get(this.DATA_URL).subscribe(
         res => {
-          let data = res as LocationItem[];
+          const data = res as LocationItemFromAPI[];
           this.lastIndex = data.length;
-          this.locationsArray = data.map((item, index) => {
+          this.locationsArray = data.map((item: any, index: number): LocationItem => {
             return {
-              index: index,
+              index,
               name: item.name,
               lat: item.coordinates[0],
               long: item.coordinates[1]
-            }
+            };
           });
 
           this.newLocation.next(this.locationsArray);
@@ -52,14 +55,14 @@ export class LocationsDataService {
 
   }
 
-  removeLocation(markerIndex) {
+  removeLocation(markerIndex): void {
     this.locationsArray = this.locationsArray.filter(item => {
       return item.index !== markerIndex;
     });
     this.newLocation.next(this.locationsArray);
   }
 
-  addLocation(item: LocationItem) {
+  addLocation(item: LocationItem): void {
     this.lastIndex++;
     item.index = this.lastIndex;
     this.locationsArray.push(item);
