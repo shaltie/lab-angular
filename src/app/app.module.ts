@@ -22,6 +22,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MapSidebarComponent } from './map-sidebar/map-sidebar.component';
 
 const ROUTES: Routes = <Routes>[
   {path: '', component: MapComponent},
@@ -36,7 +37,8 @@ const ROUTES: Routes = <Routes>[
     TwoTabsComponent,
     PageNotFoundComponent,
     PaginatedLocationsComponent,
-    AddLocationFormComponent
+    AddLocationFormComponent,
+    MapSidebarComponent
   ],
   imports: [
     BrowserModule,
