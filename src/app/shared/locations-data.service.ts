@@ -17,12 +17,9 @@ export interface LocationItemFromAPI {
   coordinates: [string];
 }
 
-
 @Injectable({
   providedIn: 'root'
 })
-
-
 
 export class LocationsDataService {
 
@@ -31,6 +28,8 @@ export class LocationsDataService {
   public locationsArray: LocationItem[];
 
   public newLocation = new ReplaySubject<LocationItem[]>();
+
+  public selectedLocation = new ReplaySubject<LocationItem>();
 
   private lastIndex = 0;
 
@@ -67,6 +66,10 @@ export class LocationsDataService {
     item.index = this.lastIndex;
     this.locationsArray.push(item);
     this.newLocation.next(this.locationsArray);
+  }
+
+  selectMarker(location: LocationItem): void {
+    this.selectedLocation.next(location);
   }
 
 

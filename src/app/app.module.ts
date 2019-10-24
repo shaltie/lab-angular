@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 
 import { HttpClientModule } from '@angular/common/http';
 
-import { AppRoutingModule } from './app-routing.module';
 import { Routes, RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { MapComponent } from './map/map.component';
@@ -24,11 +23,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MapSidebarComponent } from './map-sidebar/map-sidebar.component';
 
-const ROUTES: Routes = <Routes>[
-  {path: '', component: MapComponent},
+const ROUTES: Routes = [
+  {path: '', component: MapSidebarComponent},
   {path: 'tabs', component: TwoTabsComponent},
   {path: '**', component: PageNotFoundComponent}
-];
+] as Routes;
 
 @NgModule({
   declarations: [

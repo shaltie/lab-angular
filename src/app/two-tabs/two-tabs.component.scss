@@ -1,0 +1,44 @@
+.tabbed-page-container{
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+
+  .tabs-container{
+    flex: 0 1 auto;
+
+    /* The above is shorthand for:
+
+    flex-grow: 0,
+
+    flex-shrink: 1,
+
+    flex-basis: auto
+
+    */
+  }
+
+  .add-location-form-container{
+
+    flex: 0 1 auto;
+
+    /* The above is shorthand for:
+
+    flex-grow: 0,
+
+    flex-shrink: 1,
+
+    flex-basis: auto
+
+    */
+
+  }
+
+  .mab-block {
+    flex: 1;
+  }
+
+}
+
+
+
+

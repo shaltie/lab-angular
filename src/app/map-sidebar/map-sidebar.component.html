@@ -1,1 +1,20 @@
-<p>map-sidebar works!</p>
+<section class="map-container">
+  <div class="side-bar" [class.active]="isSideBarActive">
+    <div class="side-bar-info" *ngIf="selectedMarker">
+      <p>
+        This is {{ selectedMarker.name }}<br>
+        Coordinates are {{ selectedMarker.lat }}x{{ selectedMarker.long }}
+      </p>
+      <hr>
+      <p>
+        You can go to tabs page <a  routerLink="/tabs">here</a>
+      </p>
+    </div>
+
+    <div class="close" (click)="isSideBarActive = false;"></div>
+  </div>
+  <div class="mab-block">
+    <app-map></app-map>
+  </div>
+
+</section>

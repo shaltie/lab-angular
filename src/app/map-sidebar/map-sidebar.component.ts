@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {LocationsDataService, LocationItem} from '../shared/locations-data.service';
+declare const google: any;
 
 @Component({
   selector: 'app-map-sidebar',
@@ -7,9 +9,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MapSidebarComponent implements OnInit {
 
-  constructor() { }
+  private selectedMarker: LocationItem;
+  private isSideBarActive = false;
+
+  constructor(private locationsDataService: LocationsDataService) { }
 
   ngOnInit() {
+
+    this.locationsDataService.selectedLocation.subscribe((selectedMarker: LocationItem): void => {
+
+      this.selectedMarker = selectedMarker;
+      this.isSideBarActive = true;
+
+    });
+
   }
 
 }

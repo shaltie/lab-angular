@@ -11,6 +11,10 @@ export class AddLocationFormComponent implements OnInit {
 
   contactForm: FormGroup;
 
+  private name: string;
+  private lat: string;
+  private long: string;
+
   constructor(private locationsDataService: LocationsDataService) { }
 
   createContactForm() {
@@ -33,8 +37,6 @@ export class AddLocationFormComponent implements OnInit {
     };
 
     this.locationsDataService.addLocation(locationItem);
-
-    console.log(locationItem);
 
   }
 

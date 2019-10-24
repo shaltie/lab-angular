@@ -1,11 +1,21 @@
-<mat-tab-group>
+<div class="tabbed-page-container">
+  <mat-tab-group>
     <mat-tab label="Locations">
 
-    <app-paginated-locations></app-paginated-locations>
+      <div class="tabs-container">
+        <app-paginated-locations></app-paginated-locations>
+      </div>
 
     </mat-tab>
     <mat-tab label="Map">
+      <div class="add-location-form-container">
         <app-add-location-form></app-add-location-form>
+      </div>
+      <div class="mab-block">
         <app-map></app-map>
+      </div>
+
     </mat-tab>
-</mat-tab-group>
+  </mat-tab-group>
+</div>
+

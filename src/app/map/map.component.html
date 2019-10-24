@@ -1,25 +1,10 @@
-<section class="map-container">
-    <div class="side-bar" [class.active]="isSideBarActive">
+<div class="map" fxFlex="1 1 100%" #map>
+  <agm-map [latitude]="centeredLocation.lat" [longitude]="centeredLocation.long" (mapReady)="onMapReady($event)" *ngIf="locationsData">
+    <agm-marker *ngFor="let item of locationsData" [latitude]="item.lat" [longitude]="item.long" (markerClick)="onMarkerClick(item)"></agm-marker>
+  </agm-map>
+</div>
 
-        <div class="side-bar-info" *ngIf="selectedMarker">
-            <p>
-                This is {{ selectedMarker.name }}<br>
-                Coordinates are {{ selectedMarker.lat }}x{{ selectedMarker.long }}
-            </p>
-            <hr>
-            <p>
-                You can go to tabs page <a  routerLink="/tabs">here</a>
-            </p>
-        </div>
 
-        <div class="close" (click)="isSideBarActive = false;"></div>
-    </div>
-    <div class="mab-block">
-        <agm-map [latitude]="centeredLocation.lat" [longitude]="centeredLocation.long" (mapReady)="onMapReady($event)">
-            <agm-marker  *ngFor="let item of locationsData" [latitude]="item.lat" [longitude]="item.long" (markerClick)="isSideBarActive = true; onMarkerClick(item)"></agm-marker>
-        </agm-map>
-    </div>
-</section>
 
 
 

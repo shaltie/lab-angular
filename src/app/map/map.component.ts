@@ -15,16 +15,13 @@ export class MapComponent implements OnInit {
   private markers = [];
   private map;
   private mapIsReady = false;
-  private isSideBarActive = false;
-
 
   constructor(private locationsDataService: LocationsDataService) { }
 
-  selectedMarker;
+  onMarkerClick(markerData: LocationItem) {
 
-  onMarkerClick(markerData) {
-    this.selectedMarker = markerData;
-    this.isSideBarActive = true;
+    this.locationsDataService.selectMarker(markerData);
+
   }
 
   onMapReady(map) {
@@ -99,11 +96,12 @@ export class MapComponent implements OnInit {
 
   ngOnInit() {
 
-
     this.locationsDataService.newLocation.subscribe((locations: LocationItem[]): void => {
 
       this.locationsData = locations;
       this.centeredLocation = locations[0];
+
+      console.log('locationsData', this.locationsData);
 
       if (this.mapIsReady) {
         this.addMarkers();
