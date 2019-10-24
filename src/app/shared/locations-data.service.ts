@@ -72,5 +72,4 @@ export class LocationsDataService {
     this.selectedLocation.next(location);
   }
 
-
 }

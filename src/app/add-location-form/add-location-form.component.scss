@@ -1,0 +1,29 @@
+.location-form-container {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  bottom: 66px;
+  left: 20px;
+  z-index: 1;
+
+
+  input.example-right-align::-webkit-outer-spin-button,
+  input.example-right-align::-webkit-inner-spin-button {
+    width: 100%;
+    display: none;
+  }
+
+  input.example-right-align {
+    -moz-appearance: textfield;
+  }
+
+}
+
+.location-form-container > * {
+
+}
+
+.example-right-align {
+  text-align: right;
+}
+
